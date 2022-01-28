@@ -1,0 +1,20 @@
+.home-flex {
+    flex-direction: row;
+    height: 75%;
+}
+
+.home-flex > div {
+    width: 25%;
+}
+
+@media only screen and (max-width: 768px) {
+    .home-flex {
+        flex-direction: column;
+        height: 100%;
+    }
+
+    .home-flex > div {
+        width: 50%;
+        font-size: 10px;
+    }
+}

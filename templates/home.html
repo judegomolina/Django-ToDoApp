@@ -2,11 +2,42 @@
 
 {% block content %}
     {% if user.is_authenticated %}
-        <h1>Welcome {{ user }}!</h1>
+        <h1 class="text-center mt-3">Welcome back {{ user }}!</h1>
+        <div class="d-flex justify-content-around align-items-center home-flex">
+            <div class="card bg-dark text-white">
+                <div class="card-body">
+                  <h5 class="card-title text-center">Need a New List?</h5>
+                  <p class="card-text text-center">Create a new list and start organizing your tasks.</p>
+                  <a class="btn btn-primary w-100" href="{% url 'list_create' %}" role="button">New List</a>
+                </div>
+            </div>
+
+            <div class="card bg-dark text-white">
+                <div class="card-body">
+                  <h5 class="card-title text-center">Looking for your Lists?</h5>
+                  <p class="card-text text-center">You can review all your lists by clicking in the button below.</p>
+                  <a class="btn btn-primary w-100" href="{% url 'list_list' %}" role="button">My Lists</a>
+                </div>
+            </div>
+        </div>
     {% else %}
-        <h1>Welcome!</h1>
-        <p>
-            If you already have an account, please <a href="{% url 'login' %}">log in</a>. Otherwise, you can sign up <a href="{% url 'signup' %}">here</a>.
-        </p>
+        <h1 class="text-center mt-3">Welcome!</h1>
+        <div class="d-flex justify-content-around align-items-center home-flex">
+            <div class="card bg-dark text-white">
+                <div class="card-body">
+                  <h5 class="card-title text-center">Already have an account?</h5>
+                  <p class="card-text text-center">If you have already registered, please log in to access your lists.</p>
+                  <a class="btn btn-primary w-100" href="{% url 'login' %}" role="button">Log In</a>
+                </div>
+            </div>
+
+            <div class="card bg-dark text-white">
+                <div class="card-body">
+                  <h5 class="card-title text-center">New User?</h5>
+                  <p class="card-text text-center">If you are new here, please sign up to start creating your lists.</p>
+                  <a class="btn btn-primary w-100" href="{% url 'signup' %}" role="button">Sign Up</a>
+                </div>
+            </div>
+        </div>
     {% endif %}
 {% endblock content %}

@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% load lists_templatetags %}
+
+{% block title %}My Lists{% endblock title %}
+
+{% block content %}
+    <div class="d-flex justify-content-between">
+        <h2>My Lists</h2>
+        <a href="{% url 'list_create' %}" class="btn btn-warning" role="button">New</a>
+    </div>
+
+    {% for list in object_list %}
+        {% if user == list.author %}
+            <br>
+            <div class="card">
+                <div class="card-header">
+                    <span class="font-weight-bold">{{ list.title }}</span> &middot;
+                    <span class="text-muted">by {{ list.author }} | Created on {{ list.date_created }} | Updated on {{ list.date_modified }}</span>
+                </div>
+                <div class="card-body">
+                    {% if list.bullets.all|length > 0 %}
+                        {% preview_bullet_list list.bullets.all as bullets_preview %}
+                        <ul>
+                            {% for bullet in bullets_preview %}
+                                <li>{{ bullet }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% else %}
+                        <p>This list is empty, please open it to add some bullets.</p>
+                    {% endif %}
+                </div>
+                <div class="card-footer text-center text-muted">
+                    <a href="{% url 'list_edit' list.id %}">Open</a> | <a href="{% url 'list_delete' list.id %}">Delete</a>
+                </div>
+            </div>
+        {% endif %}
+    {% endfor %}
+
+    {% is_empty_for_user object_list as is_empty %}
+    {% if is_empty %}
+        <h4>It seems like you don't have any list yet!</h4>
+        <p>You can create your first list <a href="{% url 'list_create' %}">here</a> or hit the "New" button above.</p>
+    {% endif %}
+{% endblock content %}

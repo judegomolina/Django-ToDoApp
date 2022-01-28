@@ -1,3 +1,4 @@
+from typing import Any
 from datetime import datetime as dt
 
 from django import forms
@@ -11,10 +12,14 @@ class CustomUserCreationForm(UserCreationForm):
 
     class Meta(UserCreationForm.Meta):
         model = CustomUser
-        fields = UserCreationForm.Meta.fields + ('birthday',)
+        fields = UserCreationForm.Meta.fields + ('birthday', 'email')
         widgets = {
             'birthday': DateInput(attrs={'type': 'date'}),
         }
+
+    def __init__(self, *args: Any, **kwargs: Any) -> None:
+        super().__init__(*args, **kwargs)
+        self.fields['email'].required = True
 
     def clean_birthday(self, *args, **kwargs):
         birthday = self.cleaned_data.get('birthday')
@@ -30,4 +35,4 @@ class CustomUserChangeForm(UserChangeForm):
 
     class Meta(UserChangeForm.Meta):
         model = CustomUser
-        fields = UserChangeForm.Meta.fields
+        fields = ('first_name', 'last_name', 'email')

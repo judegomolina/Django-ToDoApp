@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block title %}List Detail{% endblock title %}
+
+{% block content %}
+    <h1>{{ list.title }}</h1>
+    <form method="POST">
+        {% csrf_token %}
+        {% for bullet in list.bullets.all %}
+            <div class="input-group mb-3">
+                <div class="input-group-text">
+                    <input name="bullet-{{ bullet.id }}" {% if bullet.is_completed %}checked{% endif %}  type="checkbox" aria-label="Checkbox for following text input">
+                </div>
+                <div>
+                    <input type="text" class="form-control" aria-label="Text input with checkbox" value="{{ bullet.title }}" name="title-{{ bullet.id }}" required>
+                </div>
+                <a class="btn btn-danger" href="{% url 'bullet_delete' bullet.id %}" role="button"><i class="bi bi-trash"></i></a>
+            </div>
+        {% endfor %}
+        {% if list.bullets.all|length > 0 %}
+            <input class="btn btn-success" type="submit" name="Save" value="Save">
+        {% endif %}
+    </form>
+    <br>
+    <form method="POST">
+        {% csrf_token %}
+        <div class="input-group mb-3 mw-100" style="width: 300px;">
+            <input type="text" class="form-control" name="new_bullet_title" placeholder="New bullet" aria-label="New bullet" aria-describedby="basic-addon2" required>
+            <div class="input-group-append">
+                <input class="btn btn-success" type="submit" name="Add" value="Add">
+            </div>
+        </div>
+    </form>
+    <br>
+    <a href="{% url 'list_list' %}" role="button">Back to My Lists</a>
+{% endblock content %}

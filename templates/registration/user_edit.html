@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block title %}User Profile{% endblock title %}
+
+{% block content %}
+    <h1>Profile</h1>
+    <p>Below you can see and edit your profile information.</p>
+    <hr>
+    <form method="POST">
+        {% csrf_token %}
+        Username: {{ user.username }}
+        <br>
+        {{ form.first_name.label}}:
+        <br>
+        {{ form.first_name}}
+        <br>
+        {{ form.last_name.label}}:
+        <br>
+        {{ form.last_name}}
+        <br>
+        Birthday: {{user.birthday}}
+        <br>
+        {{ form.email.label}}:
+        <br>
+        {{ form.email}}
+        <br>
+        <br>
+        <input class="btn btn-success" type="submit" value="Save Changes">
+    </form>
+{% endblock content %}

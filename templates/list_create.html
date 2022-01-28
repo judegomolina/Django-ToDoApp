@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block title %}New List{% endblock title %}
+
+{% block content %}
+    <h1>Create New To Do List</h1>
+    <form method="POST">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <br>
+        <input class="btn btn-success" type='submit' value="Create">
+    </form>
+{% endblock content %}
+
