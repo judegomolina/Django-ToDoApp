@@ -33,7 +33,7 @@ SECRET_KEY = env('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env('DEBUG')
 
-ALLOWED_HOSTS = ['to-do-app-django3.herokuapp.com/', 
+ALLOWED_HOSTS = ['to-do-app-django3.herokuapp.com', 
                 '127.0.0.1']
 
 
